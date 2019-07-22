@@ -282,20 +282,37 @@ AOS.init({
  main(jQuery);
 
 
-history.pushState(null, null, location.href); 
-window.onpopstate = function(event) { 
-  alert('뒤로가기')
-  window.scroll(0,0)
-    main(jQuery);
-}
-
-$('.breadcrumbs a,.navbar-nav.ml-auto,.link').on('click',function(){
+ history.pushState(null, null, location.href);
+ window.onpopstate = function(event) {
+ window.scroll(0,0)
+  main(jQuery);
+ }
+ 
+ 
+ var target = document.getElementsByClassName('App')[0];
+ 
+ var observer = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+ 
+  });
+ });
+ 
+ var config = {
+  attributes: true,
+  childList: true,
+  characterData: true,
+  subtree: true || null,
+  attributeOldValue: true || null,
+  characterDataOldValue: true || null,
+ }; // 감시할 내용 설정
+ observer.observe(target, config); // 감시할 대상 등록
+ 
+ document.getElementsByClassName('App')[0].addEventListener('click', function() {
   setTimeout(function(){
+    console.log("실행")
     window.scroll(0,0)
+ 
     main(jQuery);
-  },10)
-})
- 
- 
-
+  },500)
+ });
  

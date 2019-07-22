@@ -36,6 +36,28 @@ class Mypage extends Component {
 
  constructor(props){
    super(props)
+   this.state={
+     birthday:'',
+     email:'',
+     gender:'',
+     memberid:'',
+     money:'',
+     name:'',
+     profileimage:'',
+     phone:'',
+     hostProgressEx:'',
+     category:'',
+     meetingdate:''   
+   }
+
+
+   this.state={
+     contactData:[
+       {name:"1", phone:"01000000000"},
+       {name:"2", phone:"01000000000"},
+       {name:"3", phone:"01000000000"},
+     ]
+   }
  }
 
 componentDidMount(){
@@ -46,29 +68,56 @@ componentDidMount(){
 
  }
 
- // let data = {
- //     amount : this.state.amount,
- //     memberid : this.state.memberid
- // }
+ let id ="moonho";
+  axios.get(`http://localhost:9000/member/mypage/${id}`, {headers:headers})
+  .then(res =>{
+  //alert('통신성공 url:')
+  console.log(res.data)
+  let uInfo =res.data.uInfo
+  this.setState({
+    birthday:uInfo.birthday,
+    email:uInfo.email,
+    gender:uInfo.gender,
+    memberid:uInfo.memberid,
+    money:uInfo.money,
+    name:uInfo.name,
+    profileimage:uInfo.profileimage,
+    phone:uInfo.phone,
+    category:'',
+    meetingdate:'',
+    hostProgressEx:res.data.hostProgressEx
+  })
+  console.log(res.data.hostProgressEx[0].category)
+  console.log(res.data.hostProgressEx)
 
- let id ="c";
- axios.get(`http://localhost:9000/member/mypage/${id}`,  {headers:headers})
-     .then(res =>{
-         //alert('통신성공  url:')
-         console.log(res.data)
-     })
-     .catch(res =>{
-         alert('통신 실패')
-     })
-     console.log("라이프사이클 로직실행끝")
+  })
+  .catch(res =>{
+  alert('통신 실패')
+  })
+  console.log("라이프사이클 로직실행끝")
 
-}
+  }
+
+
+
+
+
 
 
  render(){
      return (
      <div>
+       {this.state.hostProgressEx}
+       <hr></hr>
+      
+         <h1>Contacts</h1>
+         <ol>
+           {/* {this.state.contactData.map((a)=>{
+             return ( <li>name={a.category} phone={a.phone}</li>)
+           })} */}
+         </ol>
          <br></br>
+      
          <section className="ftco-section ftco-no-pt">
           <div className="container">
             <div className="row">
@@ -80,13 +129,13 @@ componentDidMount(){
                     <img src={author} className="img-fluid" alt="Colorlib Template" />
                     <div className="text pt-4">
                       <p>
-                        <strong>name : 문호</strong><br/>
-                        email : kz1324@naver.com<br/>  
-                        gender : 남<br/> 
-                        phone : 01055754786<br/>
-                        birthday : 931229<br/>
-                        tardycash : 0<br/>
-                      <button type="button" class="btn btn-outline-warning">충전하기</button>
+                        <strong>name : {this.state.name}</strong><br/>
+                        email :{this.state.email}<br/>  
+                        gender : {this.state.gender}<br/> 
+                        phone : {this.state.phone}<br/>
+                        birthday : {this.state.birthday}<br/>
+                        tardycash : {this.state.money}<br/>
+                      <button type="button" className="btn btn-outline-warning">충전하기</button>
                       </p>
                     </div>
                   </div>    
@@ -159,7 +208,7 @@ componentDidMount(){
                 <div className="row">
                   <div className="col-md-4 ftco-animate">
                     <div className="blog-entry">
-                      {/* <a href="single.html" className="img-2"><img src={blog_1} className="img-fluid" alt="Colorlib Template" /></a> */}
+                      <a href="single.html" className="img-2"><img src={blog_1} className="img-fluid" alt="Colorlib Template" /></a>
                       <div className="text pt-3">
                         <p className="meta d-flex"><span className="pr-3">Dessert</span><span className="ml-auto pl-3">March 01, 2018</span></p>
                         <h6><button>Tasty &amp; Delicious Foods</button></h6>
@@ -169,7 +218,7 @@ componentDidMount(){
                   </div>
                   <div className="col-md-4 ftco-animate">
                     <div className="blog-entry">
-                      {/* <a href="single.html" className="img-2"><img src={blog_2} className="img-fluid" alt="Colorlib Template" /></a> */}
+                      <a href="single.html" className="img-2"><img src={blog_2} className="img-fluid" alt="Colorlib Template" /></a> 
                       <div className="text pt-3">
                         <p className="meta d-flex"><span className="pr-3">Dessert</span><span className="ml-auto pl-3">March 01, 2018</span></p>
                         <h6><button>Tasty &amp; Delicious Foods</button></h6>
@@ -179,7 +228,7 @@ componentDidMount(){
                   </div>
                   <div className="col-md-4 ftco-animate">
                     <div className="blog-entry">
-                      {/* <a href="single.html" className="img-2"><img src={blog_3} className="img-fluid" alt="Colorlib Template" /></a> */}
+                      <a href="single.html" className="img-2"><img src={blog_3} className="img-fluid" alt="Colorlib Template" /></a> 
                       <div className="text pt-3">
                         <p className="meta d-flex"><span className="pr-3">Dessert</span><span className="ml-auto pl-3">March 01, 2018</span></p>
                         <h6><button>Tasty &amp; Delicious Foods</button></h6>

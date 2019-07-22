@@ -34,7 +34,7 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long>{
         value = "select * from tbl_meeting m where m.meetingprogress=1 and m.hostid=:hostid "
         , nativeQuery = true
     )
-    public List<Object []> selectMypage2(String hostid);
+    public List<Meeting> selectMypage2(String hostid);
 
 
     @Query(

@@ -55,26 +55,30 @@ public class MemberController {
         return new ResponseEntity<String>("되어주세요", HttpStatus.OK);
     }
 
-    //회원한명검색
-    @PostMapping("/selectone")
-   public ResponseEntity<Boolean> selectone(@RequestBody Member loginFd) {
-
-       Member repoData = memberrepo.findById(loginFd.getMemberid()).get();
-
-       System.out.println(loginFd);
-
-       if (memberrepo.existsById(loginFd.getMemberid())) {
-           System.out.println("아이디 통과");
+    // 회원한명검색
+   @PostMapping("/selectone")
+   public ResponseEntity<HashMap<String,String>> selectone(@RequestBody Member loginFd) {
+       HashMap<String,String> map =new HashMap<>();
+       try{
+           Member repoData = memberrepo.findById(loginFd.getMemberid()).get();
+           memberrepo.findById(loginFd.getMemberid());
+            System.out.println("아이디 통과");
            if (loginFd.getPwd().equals(repoData.getPwd())) {
                System.out.println("비번 통과");
-               return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+               map.put("status","sucess");
+               map.put("dataid",loginFd.getMemberid());
+               return new ResponseEntity<HashMap<String,String>>(map, HttpStatus.OK);
            } else {
                System.out.println("비번 실패");
-               return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+               map.put("status","fail");
+               map.put("msg","비밀번호가 틀렸습니다");
+               return new ResponseEntity<HashMap<String,String>>(map, HttpStatus.OK);
            }
-       } else {
-           System.out.println(" 실패");
-           return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+       } catch(Exception e) {
+           System.out.println("실패");
+           map.put("status","fail");
+           map.put("msg","아이디 또는 비밀번호가 틀렸습니다");
+           return new ResponseEntity<HashMap<String,String>>(map, HttpStatus.OK);
        }
 
    }
@@ -94,8 +98,12 @@ public class MemberController {
         
         //2. 방장, 진행O
         System.out.println("2번 : " + meetingrepo.selectMypage2(id));
-        List m2 =  meetingrepo.selectMypage2(id);
+        //List m2 =  meetingrepo.selectMypage2(id);
+        //map.put("hostProgressEx",m2);
+        List m2 = meetingrepo.selectMypage2(id);
         map.put("hostProgressEx",m2);
+
+
   
         //3. 방장, 진행X
         System.out.println("3번 : " + meetingrepo.selectMypage3(id));
@@ -117,6 +125,16 @@ public class MemberController {
 
     }
     
+
+
+
+
+
+
+
+
+
+
 
 
 

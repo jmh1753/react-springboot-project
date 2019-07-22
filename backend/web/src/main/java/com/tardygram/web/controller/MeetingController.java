@@ -39,16 +39,16 @@ public class MeetingController {
    public void insertMeeting(){
        System.out.println("meeting insert");
        Meeting meeting = new Meeting();
-       meeting.setCategory("c의 동창회");
+       meeting.setCategory("moonho의 동창회2");
        meeting.setMeetingcharge(3000);
-       meeting.setMeetingdate("19/07/01");
-       meeting.setMeetingdetail("c와함께 엤날 즐거운 동창회");
-       meeting.setHostid("c");
-       meeting.setMeetingplace("서울 비트캠프");
-       meeting.setMeetingprogress(0);
-       meeting.setMeetingtitle(" 엤날 동창회으어");     
+       meeting.setMeetingdate("19/07/28");
+       meeting.setMeetingdetail("moonho와함께 엤날 즐거운 동창회2");
+       meeting.setHostid("moonho");
+       meeting.setMeetingplace("서울 비트캠프2");
+       meeting.setMeetingprogress(1);
+       meeting.setMeetingtitle(" 엤날 동창회으어2");     
 
-       Member member1 = memberrepo.findById("c").get();
+       Member member1 = memberrepo.findById("moonho").get();
        //meeting.addMember(member1);
        member1.addMeeting(meeting);
 
